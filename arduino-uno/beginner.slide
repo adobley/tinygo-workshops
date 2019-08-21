@@ -1,0 +1,97 @@
+Beginner TinyGo with Arduino Uno
+
+Aidan Obley
+http://github.com/adobley
+
+* What is TinyGo?
+
+- New compiler using LLVM to optimize code for small places.
+- New runtime that implements memory allocation, scheduling, and other core functions.
+.image images/tinygo-logo.png
+
+Not just for microcontrollers! Also supports compiling go toWebAssembly (WASM)!
+
+* Why Not Use Standard Go?
+
+- Doesn't support microcontroller instructions
+- Runtime is really big, 1MB for a hello world!
+- Compiler is optimized for speed, not resource efficiency
+- LLVM and a new runtime lets us make smart decisions for small places
+.link https://tinygo.org/faq/why-a-new-compiler/  
+
+* Let's get started!
+
+* Required Hardware
+
+.image images/0-parts.png 450 _
+- USB-A to B Cable
+- A computer with a USB-A port
+
+* Install Go
+
+It is recommended to get the latest Go version
+.link https://golang.org/doc/install
+
+* Install TinyGo & AVR Tools
+
+Install TinyGo & AVR tools for your operating system
+.link https://tinygo.org/getting-started
+
+Arduino used an AVR based processor and needs extra tools
+
+* Exercise Structure
+- Exercises will be presented with a high level goal for those wanting to attempt it without help
+- A followup slide will contain some tips on what you might need to know, a lot of the API is discoverable with `go doc machine` and more examples can be found in:
+.link https://github.com/tinygo-org/tinygo/tree/master/src/examples
+
+- Finally a circuit diagram and example solutions will follow or can be found in this repo relative to the slides in `images` and `solutions` respectively
+
+- To flash your code onto the device you will need to plug in the arduino and run:
+`tinygo flash -target=arduino <path to your go code>`
+
+* Hello World!
+.image images/1-on-board-led.png 450 _
+
+* Hello World Tips
+- The onboard LED can be referenced with `machine.LED`
+- A `Pin` needs to be configured with `.Configure(machine.PinConfig{Mode: machine.PinOutput})`
+- A `Pin` can be given a `.High()` or `.Low()` to change its state
+- Having a `time.Sleep` between state changes will help you observe the change
+
+- Don't forget to connect your arduino
+
+* Hello World Solution
+.code solutions/1-on-board-led.go
+No wiring is required for this exercise
+
+* Let's Talk About LEDs
+
+* Identifying LED Pins
+.image images/led-pins.png 450 _
+- The longer pin is positive and connects to power
+- The shorter pin is negative and connects to ground
+
+* What The Heck is a Breadboard?
+Breadboards allow us to do solderless wiring for quick prototyping
+.image images/breadboard.png 350 _
+In the image above, the two columns on each side are each a vertical run
+Connections in these columns are connected to everything else in the same columns
+The sets of rows in the middle (A,B,C,D,E and F,G,H,I,J) are each horizontal runs
+Connections in a row and on the same half of the board will be connected
+
+* Off-Board LED
+Your mission is to wire up a single LED located off the board to blink
+
+You will need to make use of the wires, an LED, and the breadboard
+
+* Tips
+- This code will be very similar to the previous exercise but will need a new pin
+- Use `machine.Pin(11)` to use Pin 11 instead of the onboard LED
+
+* Code Solution
+.code solutions/2-single-led.go
+
+* Diagram Solution
+.image images/2-single-led.png 550 _
+
+* More to Come...
